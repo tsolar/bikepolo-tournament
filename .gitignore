@@ -1,0 +1,17 @@
+# django
+*.log
+*.pot
+*.pyc
+
+# pycharm
+.idea
+.iml
+
+# emacs
+*~
+\#*\#
+.\#*
+
+# others
+social_auth_config.py
+db.local

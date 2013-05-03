@@ -1,0 +1,14 @@
+<h1>Jugadores</h1>
+{{ now }}
+<ul>
+  {% for jugador in object_list %}
+  <li class="jugador">{{ jugador }}
+    <ul>
+      {% for equipo in jugador.equipos.all %}
+      <li class="equipo">{{ equipo }}</li>
+      {% endfor %}
+    </ul>
+  </li>
+  
+  {% endfor%}
+</ul>
