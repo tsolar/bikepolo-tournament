@@ -24,7 +24,10 @@ urlpatterns = patterns('',
 
                        url(r'^accounts/', include('accounts.urls')),
                        
-                       # url(r'^$', 'base.views.index', name='base_index'),
+                       url(r'^$', 'base.views.index', name='base_index'),
+                       url(r'^logout/$',
+                           'django.contrib.auth.views.logout',
+                           {'next_page': '/'}, name='logout'),
                        # url(r'^equipos$', 'base.views.equipos_index', name='base_equipos_index'),
                        # url(r'^jugadores$', 'base.views.jugadores_index', name='base_jugadores_index'),
                        # url(r'^jugadores/list/$', JugadorListView.as_view(), name='base_jugadores_list'),
