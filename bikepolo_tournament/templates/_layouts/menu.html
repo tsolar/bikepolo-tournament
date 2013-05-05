@@ -1,0 +1,73 @@
+<div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container">
+            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </a>
+            <a class="brand" href={% url 'base_index' %}>
+                Bikepolo Tournament
+{#                <img height="20" src="{{ STATIC_URL }}img/logos/logo_gritobikes1_blanco.png" alt="Gritobikes">#}
+            </a>
+            <div class="nav-collapse collapse">
+                <ul class="nav">
+                    <li class="active"><a href="{% url 'base_index' %}">Inicio</a></li>
+                    <li><a href="#about">Nosotros</a></li>
+                    <li><a href="">Contacto</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Tienda <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="">Buscar productos</a></li>
+                            <li><a href="">Ver el catálogo</a></li>
+                            <li class="divider"></li>
+                            <li class="nav-header">Carrito de compras</li>
+                            <li><a href="#">Ver</a></li>
+                            <li><a href="#">Confirmar</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                {% if user.is_authenticated %}
+                    <ul class="nav pull-right">
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Hola, {{ user.username }} <b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">Mi cuenta</a></li>
+                                {% if user.username == 'admin' %}
+                                    <li><a href="/admin">Admin</a></li>
+                                {% endif %}
+                                <li><a href="#">Another action</a></li>
+                                <li><a href="#">Something else here</a></li>
+                                <li class="divider"></li>
+                                <li class="nav-header">Salir</li>
+                                <li><a href="">Desconectarse</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                {% else %}
+                    {#                            <p class="navbar-text pull-right">Welcome, new user. Please log in.</p>#}
+
+                    <form method="POST" action="/login/" class="navbar-form pull-right">
+                        {% csrf_token %}
+                        <input class="span2" type="text" placeholder="Email" name="username">
+                        <input class="span2" type="password" placeholder="Password" name="password">
+                        <button type="submit" class="btn">Sign in</button>
+                    </form>
+                    <ul class="nav pull-right">
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Ingresar con...<b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">Facebook</a></li>
+                                <li><a href="#">Twitter</a></li>
+                                <li><a href="#">Google</a></li>
+                                <li class="divider"></li>
+                                <li class="nav-header">Nav header</li>
+                                <li><a href="">Desconectarse</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                {% endif %}
+            </div><!--/.nav-collapse -->
+        </div>
+    </div>
+</div>
