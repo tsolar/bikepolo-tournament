@@ -4,6 +4,7 @@ from django.utils import timezone
 
 from .models import Jugador
 
+
 def index(request):
     return HttpResponse("holaaaa!")
 
@@ -14,8 +15,6 @@ def equipos_index(request):
 
 def jugadores_index(request):
     return HttpResponse("jugadores holaaaa!")
-
-
 
 
 class JugadorListView(ListView):
