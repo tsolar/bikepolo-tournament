@@ -13,6 +13,12 @@ class Jugador(models.Model):
     def __unicode__(self):
         return self.nombre
 
+# cuando se crea un usuario, se crea un jugador asociado a ese usuario
+def user_post_save(sender, instance, **kwargs):
+    jugador, new = Jugador.objects.get_or_create(user=instance)
+
+models.signals.post_save.connect(user_post_save, sender=User)
+
 
 class Equipo(models.Model):
     nombre = models.CharField(max_length = NOMBRE_MAX_LENGTH)
@@ -25,7 +31,7 @@ class Equipo(models.Model):
         membresia, created = MembresiaEquipo.objects.get_or_create(jugador=jugador, equipo=self)
         membresia.aprobado = aprobado
         membresia.save()
-
+        return membresia, created
         
 class MembresiaEquipo(models.Model):
     jugador = models.ForeignKey(Jugador, related_name='membresia_equipos')
