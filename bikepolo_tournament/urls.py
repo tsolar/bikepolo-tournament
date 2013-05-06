@@ -32,5 +32,5 @@ urlpatterns = patterns('',
                        # url(r'^jugadores$', 'base.views.jugadores_index', name='base_jugadores_index'),
                        # url(r'^jugadores/list/$', JugadorListView.as_view(), name='base_jugadores_list'),
                        url(r'^jugadores/', include('base.jugadores_urls')),
-                       
+                       url(r'^equipos/', include('base.equipos_urls')),
 )
