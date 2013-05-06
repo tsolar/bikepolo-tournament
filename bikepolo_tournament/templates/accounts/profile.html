@@ -1,0 +1,29 @@
+{% extends "_layouts/base.html" %}
+{% block content %}
+<p>Hola {{ user.first_name }}</p>
+
+{% if user.jugador %}
+    {% if user.jugador.equipos.all|length > 0 %}
+        {% if user.jugador.equipo.all|length_is:1 %}
+            Tu equipo es {{ user.jugador.equipos.0.nombre }}
+        {% else %}
+        Tus equipos son:
+        <ul>
+            {% for equipo in user.jugador.equipos.all %}
+            <li>
+                {{ equipo }}
+            </li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+    {% else %}
+        <p>Al parecer no tienes equipo</p>
+        <p>
+            Formas parte de un equipo?
+            <a class="btn btn-primary" href="/equipos/solicitar_membresia">
+                Dile al capitán
+            </a>
+        </p>
+    {% endif %}
+{% endif %}
+{% endblock %}
