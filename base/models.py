@@ -37,6 +37,9 @@ class MembresiaEquipo(models.Model):
     jugador = models.ForeignKey(Jugador, related_name='membresia_equipos')
     equipo = models.ForeignKey(Equipo, related_name='membresias')
     aprobado = models.BooleanField(default=False)
+
+    es_admin = models.BooleanField(default=False)
+    es_capitan = models.BooleanField(default=False)
     # date_joined = models.DateField()
     # invite_reason = models.CharField(max_length=64)  
 
