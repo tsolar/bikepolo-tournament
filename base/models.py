@@ -52,6 +52,7 @@ class MembresiaEquipo(models.Model):
     def save(self, *args, **kwargs):
         membresia = MembresiaEquipo.objects.filter(equipo=self.equipo)
         if not membresia:
+            self.aprobado = True
             self.es_admin = True
             self.es_capitan = True
         instance = super(MembresiaEquipo, self).save(*args, **kwargs)
