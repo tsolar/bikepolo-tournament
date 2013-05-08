@@ -90,7 +90,15 @@ class EquipoTest(TestCase):
 
 
 class MembresiaEquipoTest(TestCase):
+    def setUp(self):
+        self.equipo = create_equipo()
+
+
     def test_create_membresia(self):
-        membresia = create_membresia_equipo()
-        self.assertTrue(membresia.es_admin)
-        self.assertTrue(membresia.es_capitan)
+        membresia1 = create_membresia_equipo(equipo=self.equipo)
+        self.assertTrue(membresia1.es_admin)
+        self.assertTrue(membresia1.es_capitan)
+
+        membresia2 = create_membresia_equipo(equipo=self.equipo)
+        self.assertFalse(membresia2.es_admin)
+        self.assertFalse(membresia2.es_capitan)
