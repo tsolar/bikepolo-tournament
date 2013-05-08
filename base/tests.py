@@ -60,8 +60,8 @@ class EquipoTest(TestCase):
         self.assertEqual(membresia.jugador.nombre, 'jugador 1')
         self.assertEqual(membresia.equipo.nombre, 'Super equipo')
         self.assertFalse(membresia.aprobado)
-        self.assertFalse(membresia.es_capitan)
-        self.assertFalse(membresia.es_admin)
+        self.assertTrue(membresia.es_capitan)  # True porque es el primero
+        self.assertTrue(membresia.es_admin)  # True porque es el primero
 
     def test_agregar_jugador_aprobado_true(self):
         membresia, created = self.equipo1.agregar_jugador(
@@ -71,8 +71,8 @@ class EquipoTest(TestCase):
         self.assertEqual(membresia.jugador.nombre, 'jugador 1')
         self.assertEqual(membresia.equipo.nombre, 'Super equipo')
         self.assertTrue(membresia.aprobado)
-        self.assertFalse(membresia.es_capitan)
-        self.assertFalse(membresia.es_admin)
+        self.assertTrue(membresia.es_capitan)
+        self.assertTrue(membresia.es_admin)
 
     def test_agregar_jugador_membresia_existente(self):
         membresia1 = create_membresia_equipo(
@@ -87,3 +87,10 @@ class EquipoTest(TestCase):
         self.assertTrue(membresia.aprobado)
         self.assertEqual(membresia1.es_admin, membresia.es_admin)
         self.assertEqual(membresia1.es_capitan, membresia.es_capitan)
+
+
+class MembresiaEquipoTest(TestCase):
+    def test_create_membresia(self):
+        membresia = create_membresia_equipo()
+        self.assertTrue(membresia.es_admin)
+        self.assertTrue(membresia.es_capitan)
