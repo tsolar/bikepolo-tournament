@@ -56,7 +56,7 @@ class MembresiaEquipo(models.Model):
             self.es_capitan = True
         instance = super(MembresiaEquipo, self).save(*args, **kwargs)
         return instance
-    
+
 
 class Partido(models.Model):
     equipo1 = models.ForeignKey(Equipo, related_name='equipo1')
