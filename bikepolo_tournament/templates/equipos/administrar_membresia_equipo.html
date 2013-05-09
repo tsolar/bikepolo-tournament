@@ -1,0 +1,14 @@
+{% extends "_layouts/base.html" %}
+{% block content %}
+Administrando equipo {{ equipo }}
+    <p>Jugadores pendientes</p>
+    <ul>
+    {% for jugador in jugadores_pendientes %}
+        <li>
+            {{ jugador }}
+            <a class="btn btn-success" href="">aprobar</a>
+            <a class="btn btn-danger" href="">rechazar</a>
+        </li>
+    {% endfor %}
+    </ul>
+{% endblock %}

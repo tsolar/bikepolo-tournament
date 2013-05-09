@@ -1,0 +1,14 @@
+{% extends "_layouts/base.html" %}
+{% block content %}
+Los equipos que administras son:
+    <ul>
+    {% for equipo in equipos_administrados %}
+        <li>
+            {{ equipo }}
+            <a class="btn btn-primary" href="{% url 'base_equipos_administrar_membresia_equipo' equipo=equipo %}">
+                administrar membresía
+            </a>
+        </li>
+    {% endfor %}
+    </ul>
+{% endblock %}
