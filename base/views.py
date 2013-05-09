@@ -62,3 +62,32 @@ def equipos_solicitar_membresia_done(request, equipo):
         # 'jugador': jugador,
         'equipo': equipo,
     })
+
+
+def equipos_administrar_membresia_index(request):
+    user = request.user
+    membresia_equipos = user.jugador.membresia_equipos.all()
+
+    equipos_administrados = []
+    for membresia in membresia_equipos:
+        equipos_administrados.append(membresia.equipo)
+
+    return render(request, 'equipos/administrar_membresia.html', {
+        # 'jugador': jugador,
+        # 'equipos': equipos,
+        'equipos_administrados': equipos_administrados,
+    })
+
+def equipos_administrar_membresia_equipo(request, equipo):
+    user = request.user
+    equipo = Equipo.objects.get(nombre=equipo)
+    membresias_equipo = equipo.membresias.all()
+    jugadores_pendientes = []
+    for membresia in membresias_equipo:
+        if membresia.jugador.id is not user.jugador.id:
+            jugadores_pendientes.append(membresia.jugador)
+    return render(request, 'equipos/administrar_membresia_equipo.html', {
+        # 'jugador': jugador,
+        'equipo': equipo,
+        'jugadores_pendientes': jugadores_pendientes,
+    })
