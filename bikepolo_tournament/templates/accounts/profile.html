@@ -9,9 +9,12 @@
         {% else %}
         Tus equipos son:
         <ul>
-            {% for equipo in user.jugador.equipos.all %}
+            {% for membresia in user.jugador.membresia_equipos.all %}
             <li>
-                {{ equipo }}
+                {{ membresia.equipo }}
+                {% if membresia.es_admin %}
+                    eres admin!
+                {% endif %}
             </li>
             {% endfor %}
         </ul>
