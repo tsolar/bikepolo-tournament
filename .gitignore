@@ -15,3 +15,6 @@
 # others
 social_auth_config.py
 db.local
+.aws*
+static
+local.py
