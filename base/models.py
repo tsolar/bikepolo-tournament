@@ -1,6 +1,7 @@
 # coding: utf-8
 from django.contrib.auth.models import User
 from django.db import models
+from django.forms import ModelForm
 
 NOMBRE_MAX_LENGTH = 100
 
@@ -32,7 +33,22 @@ class Equipo(models.Model):
         membresia.aprobado = aprobado
         membresia.save()
         return membresia, created
-        
+
+    """Obtiene los jugadores con aprobación pendiente"""
+    def jugadores_pendientes(self):
+        membresias_equipo = self.membresias.all()
+        jugadores_pendientes = []
+        for membresia in membresias_equipo:
+            if membresia.aprobado is not True and membresia.es_admin is False:
+                jugadores_pendientes.append(membresia.jugador)
+        return jugadores_pendientes
+
+class EquipoForm(ModelForm):
+    class Meta:
+        model = Equipo
+        fields = ['nombre', 'jugadores']
+
+
 class MembresiaEquipo(models.Model):
     jugador = models.ForeignKey(Jugador, related_name='membresia_equipos')
     equipo = models.ForeignKey(Equipo, related_name='membresias')
@@ -41,7 +57,7 @@ class MembresiaEquipo(models.Model):
     es_admin = models.BooleanField(default=False)
     es_capitan = models.BooleanField(default=False)
     # date_joined = models.DateField()
-    # invite_reason = models.CharField(max_length=64)  
+    # invite_reason = models.CharField(max_length=64)
 
     class Meta:
         unique_together = ("jugador", "equipo")
@@ -68,4 +84,3 @@ class Partido(models.Model):
 
     def __unicode__(self):
         return '%s vs %s (%s)' % (self.equipo1, self.equipo2, self.fecha)
-

@@ -1,0 +1,34 @@
+
+
+/* ==========================================================================
+   Author's custom styles
+   ========================================================================== */
+
+
+
+.producto-thumbnail {
+    height: 400px;
+}
+
+.producto-thumbnail-img {
+    height: 200px;
+    line-height: 0;
+}
+
+.producto-thumbnail-title span {
+    vertical-align: middle;
+    margin-bottom: 5px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+

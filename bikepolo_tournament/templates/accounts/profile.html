@@ -4,6 +4,9 @@
 
 {% if user.jugador %}
     {% if user.jugador.equipos.all|length > 0 %}
+        <div class="">
+          <a class="btn btn-primary" href="{% url "base_equipos_administrar_membresia_index" %}">Administrar membresías</a>
+		</div>
         {% if user.jugador.equipo.all|length_is:1 %}
             Tu equipo es {{ user.jugador.equipos.0.nombre }}
         {% else %}

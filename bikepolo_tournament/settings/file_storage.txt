@@ -1,0 +1,14 @@
+# #DEFAULT_FILE_STORAGE = 'libs.storages.S3Storage.S3Storage'
+# DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
+#
+# # AWS_ACCESS_KEY_ID = '9834-5214-1355'
+# # AWS_SECRET_ACCESS_KEY = \
+# #     'ac5c29b676495d17e5ba779cb0448846562ad93a113c9baf9dd75abb6f2c3744'
+#
+# AWS_ACCESS_KEY_ID = 'AKIAIVQYPJDEUCICXXLQ'
+# AWS_SECRET_ACCESS_KEY = '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'
+# AWS_STORAGE_BUCKET_NAME = 'gritobikes-www'
+#
+# STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
+# S3_URL = 'http://%s.s3.amazonaws.com/' % AWS_STORAGE_BUCKET_NAME
+# STATIC_URL = S3_URL

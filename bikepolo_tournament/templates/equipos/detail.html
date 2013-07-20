@@ -1,0 +1,13 @@
+{% extends "_layouts/base.html" %}
+{% block content %}
+<h2>
+  Equipo "{{ equipo }}"
+</h2>
+
+<h3>Jugadores</h3>
+<ul>
+  {% for jugador in equipo.jugadores.all %}
+    <li>{{ jugador.nombre }}</li>
+  {% endfor %}
+</ul>
+{% endblock %}

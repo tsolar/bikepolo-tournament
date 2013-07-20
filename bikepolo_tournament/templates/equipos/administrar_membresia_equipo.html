@@ -3,12 +3,61 @@
 Administrando equipo {{ equipo }}
     <p>Jugadores pendientes</p>
     <ul>
-    {% for jugador in jugadores_pendientes %}
+      {% for jugador in jugadores_pendientes %}
         <li>
-            {{ jugador }}
-            <a class="btn btn-success" href="">aprobar</a>
-            <a class="btn btn-danger" href="">rechazar</a>
+          {{ jugador }}
+          <a class="btn btn-success aprobar-membresia"
+             data-jugador-id="{{ jugador.id }}"
+             data-equipo-id="{{ equipo.id }}"
+             href="#">aprobar</a>
+		    <a class="btn btn-danger" href="#">rechazar</a>
         </li>
     {% endfor %}
     </ul>
+<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+<script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+<script type="text/javascript">
+  $(document).ready(function() {
+	  function csrfSafeMethod(method) {
+		  // these HTTP methods do not require CSRF protection
+		  return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+	  }
+	  // using jQuery
+	  function getCookie(name) {
+		  var cookieValue = null;
+		  if (document.cookie && document.cookie != '') {
+			  var cookies = document.cookie.split(';');
+			  for (var i = 0; i < cookies.length; i++) {
+				  var cookie = jQuery.trim(cookies[i]);
+				  // Does this cookie string begin with the name we want?
+				  if (cookie.substring(0, name.length + 1) == (name + '=')) {
+					  cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+					  break;
+				  }
+			  }
+		  }
+		  return cookieValue;
+	  }
+	  var csrftoken = getCookie('csrftoken');
+	  $.ajaxSetup({
+		  crossDomain: false, // obviates need for sameOrigin test
+		  beforeSend: function(xhr, settings) {
+			  if (!csrfSafeMethod(settings.type)) {
+				  xhr.setRequestHeader("X-CSRFToken", csrftoken);
+			  }
+		  }
+	  });
+
+	  $('.aprobar-membresia').click(function(){
+		  var data = {
+			  jugador_id: $(this).attr('data-jugador-id'),
+			  equipo_id: $(this).attr('data-equipo-id')
+		  };
+		  var posting = $.post('{% url "base_equipos_aprobar_membresia" %}', data);
+		  posting.done(function(data){
+			  alert(data);
+		  });
+	  });
+  });
+</script>
 {% endblock %}

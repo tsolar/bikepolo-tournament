@@ -1,3 +1,4 @@
+# coding: utf-8
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 from django.http import HttpResponse, HttpResponseRedirect
@@ -6,7 +7,7 @@ from django.views.generic.list import ListView
 from django.utils import timezone
 
 from .forms import SolicitarMembresiaForm
-from .models import Jugador, Equipo
+from .models import Jugador, Equipo, EquipoForm, MembresiaEquipo
 
 
 def index(request):
@@ -78,16 +79,60 @@ def equipos_administrar_membresia_index(request):
         'equipos_administrados': equipos_administrados,
     })
 
+
 def equipos_administrar_membresia_equipo(request, equipo):
     user = request.user
     equipo = Equipo.objects.get(nombre=equipo)
-    membresias_equipo = equipo.membresias.all()
-    jugadores_pendientes = []
-    for membresia in membresias_equipo:
-        if membresia.jugador.id is not user.jugador.id:
-            jugadores_pendientes.append(membresia.jugador)
+    jugadores_pendientes = equipo.jugadores_pendientes()
     return render(request, 'equipos/administrar_membresia_equipo.html', {
         # 'jugador': jugador,
         'equipo': equipo,
         'jugadores_pendientes': jugadores_pendientes,
+    })
+
+
+def equipos_aprobar_membresia(request):
+    """"""
+    jugador = request.POST['jugador_id']
+    equipo = request.POST['equipo_id']
+    membresia_equipo = MembresiaEquipo.objects.get(equipo=equipo,
+                                                      jugador=jugador)
+    membresia_equipo.aprobado = True
+    membresia_equipo.save()
+    return HttpResponse(membresia_equipo.aprobado)
+
+
+def equipos_crear(request):
+    if request.method == 'POST': # If the form has been submitted...
+        form = EquipoForm(
+            request.POST)  # A form bound to the POST data
+        if form.is_valid(): # All validation rules pass
+            if '_auth_user_id' not in request.session:
+                return redirect(reverse('base_index'))
+            else:
+                user_pk = request.session['_auth_user_id']
+            user = User.objects.get(pk=user_pk)
+            nombre_equipo = form.cleaned_data.get('nombre')
+
+            # TODO: falta agregar membresías!
+            # membresia, created = equipo.agregar_jugador(user.jugador)
+            # return HttpResponse(form.cleaned_data.get('nombre'))
+            equipo, created = Equipo.objects.get_or_create(nombre=nombre_equipo)
+            return redirect(
+                reverse('base_equipo_detail',
+                        kwargs={'equipo':equipo}
+                )
+            )
+    else:
+        form = EquipoForm() # An unbound form
+
+    return render(request, 'equipos/crear.html', {
+        'form': form,
+    })
+
+
+def equipo_detail(request, equipo):
+    equipo = Equipo.objects.get(nombre=equipo)
+    return render(request, 'equipos/detail.html', {
+        'equipo': equipo,
     })

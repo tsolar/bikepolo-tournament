@@ -5,7 +5,7 @@ import django.conf.global_settings as DEFAULT_SETTINGS
 
 # Django settings for bikepolo_tournament project.
 
-DEBUG = False
+DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
 # here() gives us file paths from the root of the system to the directory
@@ -73,7 +73,7 @@ MEDIA_URL = '/media/'
 # in apps' "static/" subdirectories and in STATICFILES_DIRS.
 # Example: "/home/media/media.lawrence.com/static/"
 #STATIC_ROOT = ''
-STATIC_ROOT = root('static')
+STATIC_ROOT = root('static') + '/'
 
 # URL prefix for static files.
 # Example: "http://media.lawrence.com/static/"
@@ -93,7 +93,7 @@ STATICFILES_DIRS = (
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-    #    'django.contrib.staticfiles.finders.DefaultStorageFinder',
+    'django.contrib.staticfiles.finders.DefaultStorageFinder',
 )
 
 # Make this unique, and don't share it with anybody.
@@ -194,10 +194,10 @@ LOGGING = {
 }
 
 AUTHENTICATION_BACKENDS = (
-    # 'social_auth.backends.twitter.TwitterBackend',
+    'social_auth.backends.twitter.TwitterBackend',
     'social_auth.backends.facebook.FacebookBackend',
     # 'social_auth.backends.google.GoogleOAuthBackend',
-    # 'social_auth.backends.google.GoogleOAuth2Backend',
+    'social_auth.backends.google.GoogleOAuth2Backend',
     # 'social_auth.backends.google.GoogleBackend',
     # 'social_auth.backends.yahoo.YahooBackend',
     # 'social_auth.backends.browserid.BrowserIDBackend',
