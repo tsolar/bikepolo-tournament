@@ -1,4 +1,6 @@
 # coding: utf-8
+import json
+
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 from django.http import HttpResponse, HttpResponseRedirect
@@ -99,7 +101,8 @@ def equipos_aprobar_membresia(request):
                                                       jugador=jugador)
     membresia_equipo.aprobado = True
     membresia_equipo.save()
-    return HttpResponse(membresia_equipo.aprobado)
+    json_response = json.dumps(membresia_equipo.aprobado)
+    return HttpResponse(json_response, mimetype='application/json')
 
 
 def equipos_crear(request):
