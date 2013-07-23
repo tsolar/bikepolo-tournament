@@ -117,10 +117,16 @@ def equipos_crear(request):
             user = User.objects.get(pk=user_pk)
             nombre_equipo = form.cleaned_data.get('nombre')
 
-            # TODO: falta agregar membresías!
-            # membresia, created = equipo.agregar_jugador(user.jugador)
-            # return HttpResponse(form.cleaned_data.get('nombre'))
-            equipo, created = Equipo.objects.get_or_create(nombre=nombre_equipo)
+            equipo, created = \
+                Equipo.objects.get_or_create(nombre=nombre_equipo)
+
+            if created is True:
+                equipo.agregar_jugador(user.jugador, aprobado=True)
+
+            jugadores = form.cleaned_data.get('jugadores')
+            for jugador in jugadores:
+                equipo.agregar_jugador(jugador, aprobado=True)
+                # enviar invitación en vez de?
             return redirect(
                 reverse('base_equipo_detail',
                         kwargs={'equipo':equipo}
