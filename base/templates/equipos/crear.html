@@ -1,5 +1,6 @@
 {% extends "_layouts/base.html" %}
 {% block content %}
+    <h2>Crear Equipo</h2>
 <form method="post" action="">{% csrf_token %}
     {{ form }}
     <input type="submit" value="Crear">
