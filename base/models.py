@@ -12,6 +12,8 @@ class Jugador(models.Model):
     #equipos = models.ManyToManyField(Equipo, related_name='equipos')
 
     def __unicode__(self):
+        if self.nombre == '':
+            return "<Jugador #%s>" % self.id
         return self.nombre
 
 # cuando se crea un usuario, se crea un jugador asociado a ese usuario
