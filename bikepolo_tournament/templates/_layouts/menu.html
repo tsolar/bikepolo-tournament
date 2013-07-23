@@ -8,7 +8,6 @@
             </a>
             <a class="brand" href={% url 'base_index' %}>
                 Bikepolo Tournament
-{#                <img height="20" src="{{ STATIC_URL }}img/logos/logo_gritobikes1_blanco.png" alt="Gritobikes">#}
             </a>
             <div class="nav-collapse collapse">
                 <ul class="nav">
@@ -36,7 +35,7 @@
                                 {% if user.username == 'admin' %}
                                     <li><a href="/admin">Admin</a></li>
                                 {% endif %}
-                                <li><a href="#">Another action</a></li>
+                                <li><a href="{% url "accounts_profile" %}">Perfil</a></li>
                                 <li><a href="#">Something else here</a></li>
                                 <li class="divider"></li>
                                 <li class="nav-header">Salir</li>
