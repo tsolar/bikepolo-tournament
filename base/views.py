@@ -4,7 +4,7 @@ import json
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 from django.http import HttpResponse, HttpResponseRedirect
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, render_to_response
 from django.views.generic.list import ListView
 from django.utils import timezone
 
@@ -13,7 +13,7 @@ from .models import Jugador, Equipo, EquipoForm, MembresiaEquipo
 
 
 def index(request):
-    return HttpResponse("holaaaa!")
+    return render(request, 'index.html')
 
 
 def equipos_index(request):
