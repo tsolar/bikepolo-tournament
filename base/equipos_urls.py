@@ -11,6 +11,7 @@ urlpatterns = patterns('',
                        url(r'^membresia/solicitar/$', 'base.views.equipos_solicitar_membresia', name='base_equipos_solicitar_membresia'),
                        url(r'^membresia/solicitar/(?P<equipo>[^/]+)/done$', 'base.views.equipos_solicitar_membresia_done', name='base_equipos_solicitar_membresia_done'),
                        url(r'^membresia/admin/$', 'base.views.equipos_administrar_membresia_index', name='base_equipos_administrar_membresia_index'),
-                       url(r'^membresia/admin/(?P<equipo>[^/]+)/$', 'base.views.equipos_administrar_membresia_equipo', name='base_equipos_administrar_membresia_equipo'),
+                       url(r'^membresia/admin/(?P<equipo_id>[^/]+)/$', 'base.views.equipos_administrar_membresia_equipo', name='base_equipos_administrar_membresia_equipo'),
                        url(r'^membresia/aprobar$', 'base.views.equipos_aprobar_membresia', name='base_equipos_aprobar_membresia'),
+                       url(r'^lista_jugadores/$', 'base.views.equipos_get_lista_jugadores', name='base_equipos_get_lista_jugadores_equipo'),
 )
