@@ -25,13 +25,15 @@ models.signals.post_save.connect(user_post_save, sender=User)
 
 class Equipo(models.Model):
     nombre = models.CharField(max_length = NOMBRE_MAX_LENGTH)
-    jugadores = models.ManyToManyField(Jugador, through='MembresiaEquipo', related_name='equipos')
+    jugadores = models.ManyToManyField(Jugador, through='MembresiaEquipo',
+                                       related_name='equipos')
 
     def __unicode__(self):
         return self.nombre
 
     def agregar_jugador(self, jugador, aprobado=False):
-        membresia, created = MembresiaEquipo.objects.get_or_create(jugador=jugador, equipo=self)
+        membresia, created = MembresiaEquipo.objects.get_or_create(
+            jugador=jugador, equipo=self)
         membresia.aprobado = aprobado
         membresia.save()
         return membresia, created
@@ -44,6 +46,7 @@ class Equipo(models.Model):
             if membresia.aprobado is not True and membresia.es_admin is False:
                 jugadores_pendientes.append(membresia.jugador)
         return jugadores_pendientes
+
 
 class EquipoForm(ModelForm):
     class Meta:
