@@ -43,7 +43,7 @@ urlpatterns = patterns('',
                        # url(r'^jugadores/list/$', JugadorListView.as_view(), name='base_jugadores_list'),
                        url(r'^jugadores/', include('base.jugadores_urls')),
                        url(r'^equipos/', include('base.equipos_urls')),
-                       url(r'^equipo/(?P<equipo>[^/]+)/$',
+                       url(r'^equipo/(?P<equipo_nombre>[^/]+),(?P<equipo_id>\d+)/$',
                            'base.views.equipo_detail',
                            name='base_equipo_detail'),
 )
