@@ -140,10 +140,12 @@ def equipos_crear(request):
     })
 
 
-def equipo_detail(request, equipo):
-    equipo = Equipo.objects.get(nombre=equipo)
+def equipo_detail(request, equipo_nombre, equipo_id):
+    equipo = Equipo.objects.get(id=equipo_id)
+    jugadores = equipo.jugadores.filter(membresia_equipos__aprobado=True)
     return render(request, 'equipos/detail.html', {
         'equipo': equipo,
+        'jugadores': jugadores,
     })
 
 
