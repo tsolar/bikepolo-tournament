@@ -51,6 +51,7 @@
 
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
         <script>window.jQuery || document.write('<script src="{{ STATIC_URL }}js/vendor/jquery-1.9.1.min.js"><\/script>')</script>
+        <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
 
         <script src="{{ STATIC_URL }}js/vendor/bootstrap.min.js"></script>
         <script src="{{ STATIC_URL }}js/vendor/holder.js/holder.js"></script>
@@ -64,5 +65,39 @@
             g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
             s.parentNode.insertBefore(g,s)}(document,'script'));
         </script>
+        <script type="text/javascript">
+            $(document).ready(function() {
+              function csrfSafeMethod(method) {
+                  // these HTTP methods do not require CSRF protection
+                  return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+              }
+              // using jQuery
+              function getCookie(name) {
+                  var cookieValue = null;
+                  if (document.cookie && document.cookie != '') {
+                      var cookies = document.cookie.split(';');
+                      for (var i = 0; i < cookies.length; i++) {
+                          var cookie = jQuery.trim(cookies[i]);
+                          // Does this cookie string begin with the name we want?
+                          if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                              cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                              break;
+                          }
+                      }
+                  }
+                  return cookieValue;
+              }
+              var csrftoken = getCookie('csrftoken');
+              $.ajaxSetup({
+                  crossDomain: false, // obviates need for sameOrigin test
+                  beforeSend: function(xhr, settings) {
+                      if (!csrfSafeMethod(settings.type)) {
+                          xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                      }
+                  }
+              });
+            });
+        </script>
+        {% block extra_js %}{% endblock %}
     </body>
 </html>
