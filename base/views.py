@@ -1,5 +1,6 @@
 # coding: utf-8
 import json
+from pprint import pprint
 
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
@@ -82,14 +83,13 @@ def equipos_administrar_membresia_index(request):
     })
 
 
-def equipos_administrar_membresia_equipo(request, equipo):
+def equipos_administrar_membresia_equipo(request, equipo_id):
+    # TODO: no poder borrarme yo mismo
     user = request.user
-    equipo = Equipo.objects.get(nombre=equipo)
-    jugadores_pendientes = equipo.jugadores_pendientes()
+    equipo = Equipo.objects.get(id=equipo_id)
+
     return render(request, 'equipos/administrar_membresia_equipo.html', {
-        # 'jugador': jugador,
         'equipo': equipo,
-        'jugadores_pendientes': jugadores_pendientes,
     })
 
 
@@ -144,4 +144,18 @@ def equipo_detail(request, equipo):
     equipo = Equipo.objects.get(nombre=equipo)
     return render(request, 'equipos/detail.html', {
         'equipo': equipo,
+    })
+
+
+def equipos_get_lista_jugadores(request):
+    equipo_id = request.POST['equipo_id']
+    equipo = Equipo.objects.get(id=equipo_id)
+    jugadores_pendientes = equipo.jugadores.filter(
+        membresia_equipos__aprobado=False)
+    jugadores = equipo.jugadores.filter(membresia_equipos__aprobado=True)
+
+    return render(request, 'equipos/lista_jugadores.html', {
+        'equipo': equipo,
+        'jugadores': jugadores,
+        'jugadores_pendientes': jugadores_pendientes,
     })
