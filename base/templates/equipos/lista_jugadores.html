@@ -1,0 +1,22 @@
+<ul>
+    {% for jugador in jugadores %}
+        <li>
+            {{ jugador }}
+
+            <a class="btn btn-mini btn-danger borrar"
+               data-jugador-id="{{ jugador.id }}"
+               data-equipo-id="{{ equipo.id }}"
+               href="#">borrar</a>
+        </li>
+    {% endfor %}
+    {% for jugador in jugadores_pendientes %}
+        <li>
+            {{ jugador }}
+            <a class="btn btn-mini btn-success aprobar-membresia"
+               data-jugador-id="{{ jugador.id }}"
+               data-equipo-id="{{ equipo.id }}"
+               href="#">aprobar</a>
+            <a class="btn btn-mini btn-danger rechazar-membresia" href="#">rechazar</a>
+        </li>
+    {% endfor %}
+</ul>
