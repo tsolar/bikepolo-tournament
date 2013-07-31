@@ -4,9 +4,6 @@
 
 {% if user.jugador %}
     {% if user.jugador.equipos.all|length > 0 %}
-        <div class="">
-          <a class="btn btn-primary" href="{% url "base_equipos_administrar_membresia_index" %}">Administrar membresías</a>
-		</div>
         {% if user.jugador.equipo.all|length_is:1 %}
             Tu equipo es {{ user.jugador.equipos.0.nombre }}
         {% else %}
@@ -14,9 +11,13 @@
         <ul>
             {% for membresia in user.jugador.membresia_equipos.all %}
             <li>
-                {{ membresia.equipo }}
+                <a href="{% url "base_equipo_detail" equipo_nombre=membresia.equipo equipo_id=membresia.equipo.id %}">
+                    {{ membresia.equipo }}
+                </a>
                 {% if membresia.es_admin %}
-                    eres admin!
+                    <a class="btn btn-mini" href="{% url "base_equipos_administrar_membresia_equipo" equipo_id=membresia.equipo.id %}">
+                        Administrar
+                    </a>
                 {% endif %}
             </li>
             {% endfor %}
@@ -26,7 +27,7 @@
         <p>Al parecer no tienes equipo</p>
         <p>
             Formas parte de un equipo?
-            <a class="btn btn-primary" href="/equipos/solicitar_membresia">
+            <a class="btn btn-primary" href="{% url "base_equipos_solicitar_membresia" %}">
                 Dile al capitán
             </a>
         </p>
