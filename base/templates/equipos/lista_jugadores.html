@@ -20,3 +20,25 @@
         </li>
     {% endfor %}
 </ul>
+<script>
+    $(function() {
+        $('.borrar').on('click', function(){
+            confirm_borrar = confirm("Seguro que deseas eliminar este jugador del equipo?");
+            if(confirm_borrar){
+                var data = {
+                    jugador_id: $(this).attr('data-jugador-id'),
+                    equipo_id: $(this).attr('data-equipo-id')
+                };
+                var borrar_jugador = $.post('{% url "base_equipos_borrar_membresia" %}', data);
+                borrar_jugador.done(function(ok){
+                    if(ok === true) {
+                        $.post('{% url "base_equipos_get_lista_jugadores_equipo" %}', data).done(function(html){
+                            $('.lista-jugadores').html(html);
+                        });
+                    }
+                });
+            }
+            return false;
+       });
+    });
+</script>
