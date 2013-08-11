@@ -105,6 +105,18 @@ def equipos_aprobar_membresia(request):
     return HttpResponse(json_response, mimetype='application/json')
 
 
+def equipos_borrar_membresia(request):
+    """"""
+    jugador = request.POST['jugador_id']
+    equipo = request.POST['equipo_id']
+    membresia_equipo = MembresiaEquipo.objects.get(equipo=equipo,
+                                                      jugador=jugador)
+    # TODO: meter el delete en un try/expect?
+    membresia_equipo.delete()
+    json_response = json.dumps(True)
+    return HttpResponse(json_response, mimetype='application/json')
+
+
 def equipos_crear(request):
     if request.method == 'POST': # If the form has been submitted...
         form = EquipoForm(
