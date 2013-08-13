@@ -141,7 +141,10 @@ def equipos_crear(request):
                 # enviar invitación en vez de?
             return redirect(
                 reverse('base_equipo_detail',
-                        kwargs={'equipo':equipo}
+                        kwargs={
+                            'equipo_nombre':equipo.nombre,
+                            'equipo_id':equipo.id
+                        }
                 )
             )
     else:
