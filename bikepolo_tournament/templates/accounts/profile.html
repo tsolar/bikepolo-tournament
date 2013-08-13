@@ -1,7 +1,6 @@
 {% extends "_layouts/base.html" %}
 {% block content %}
 <p>Hola {{ user.first_name }}</p>
-
 {% if user.jugador %}
     {% if user.jugador.equipos.all|length > 0 %}
         {% if user.jugador.equipo.all|length_is:1 %}
@@ -32,5 +31,6 @@
             </a>
         </p>
     {% endif %}
+    <a href="{% url "base_equipos_crear" %}">Crear equipo</a>
 {% endif %}
 {% endblock %}
