@@ -25,13 +25,13 @@ MANAGERS = ADMINS
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
         # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': 'db.local', # Or path to database file if using sqlite3.
-        'USER': '', # Not used with sqlite3.
+        'NAME': 'bpt', # Or path to database file if using sqlite3.
+        'USER': 'root', # Not used with sqlite3.
         'PASSWORD': '', # Not used with sqlite3.
-        'HOST': '', # Set to empty string for localhost. Not used with sqlite3.
-        'PORT': '', # Set to empty string for default. Not used with sqlite3.
+        # 'HOST': '', # Set to empty string for localhost. Not used with sqlite3.
+        # 'PORT': '', # Set to empty string for default. Not used with sqlite3.
     }
 }
 
@@ -45,7 +45,7 @@ TIME_ZONE = 'America/Santiago'
 # http://www.i18nguy.com/unicode/language-identifiers.html
 LANGUAGE_CODE = 'en-us'
 
-SITE_ID = 1
+SITE_ID = 2
 
 # If you set this to False, Django will make some optimizations so as not
 # to load the internationalization machinery.
@@ -133,6 +133,8 @@ TEMPLATE_CONTEXT_PROCESSORS = DEFAULT_SETTINGS.TEMPLATE_CONTEXT_PROCESSORS + (
     # ...
     'django.core.context_processors.request',
     'django.core.context_processors.static',
+    "allauth.account.context_processors.account",
+    "allauth.socialaccount.context_processors.socialaccount",
     # ...
 )
 
@@ -155,7 +157,26 @@ DJANGO_APPS = (
 )
 
 THIRD_PARTY_APPS = (
-    'social_auth',
+    # 'social_auth',
+    'south',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    # ... include the providers you want to enable:
+    # 'allauth.socialaccount.providers.bitly',
+    # 'allauth.socialaccount.providers.dropbox',
+    'allauth.socialaccount.providers.facebook',
+    # 'allauth.socialaccount.providers.github',
+    'allauth.socialaccount.providers.google',
+    # 'allauth.socialaccount.providers.linkedin',
+    'allauth.socialaccount.providers.openid',
+    # 'allauth.socialaccount.providers.persona',
+    # 'allauth.socialaccount.providers.soundcloud',
+    # 'allauth.socialaccount.providers.stackexchange',
+    # 'allauth.socialaccount.providers.twitch',
+    'allauth.socialaccount.providers.twitter',
+    # 'allauth.socialaccount.providers.vimeo',
+    # 'allauth.socialaccount.providers.weibo',
 )
 
 LOCAL_APPS = (
@@ -192,29 +213,37 @@ LOGGING = {
         },
     }
 }
+#
+# AUTHENTICATION_BACKENDS = (
+#     'social_auth.backends.twitter.TwitterBackend',
+#     'social_auth.backends.facebook.FacebookBackend',
+#     # 'social_auth.backends.google.GoogleOAuthBackend',
+#     'social_auth.backends.google.GoogleOAuth2Backend',
+#     # 'social_auth.backends.google.GoogleBackend',
+#     # 'social_auth.backends.yahoo.YahooBackend',
+#     # 'social_auth.backends.browserid.BrowserIDBackend',
+#     # 'social_auth.backends.contrib.linkedin.LinkedinBackend',
+#     # 'social_auth.backends.contrib.disqus.DisqusBackend',
+#     # 'social_auth.backends.contrib.livejournal.LiveJournalBackend',
+#     # 'social_auth.backends.contrib.orkut.OrkutBackend',
+#     # 'social_auth.backends.contrib.foursquare.FoursquareBackend',
+#     # 'social_auth.backends.contrib.github.GithubBackend',
+#     # 'social_auth.backends.contrib.vk.VKOAuth2Backend',
+#     # 'social_auth.backends.contrib.live.LiveBackend',
+#     # 'social_auth.backends.contrib.skyrock.SkyrockBackend',
+#     # 'social_auth.backends.contrib.yahoo.YahooOAuthBackend',
+#     # 'social_auth.backends.contrib.readability.ReadabilityBackend',
+#     # 'social_auth.backends.contrib.fedora.FedoraBackend',
+#     # 'social_auth.backends.OpenIDBackend',
+#     'django.contrib.auth.backends.ModelBackend',
+# )
 
 AUTHENTICATION_BACKENDS = (
-    'social_auth.backends.twitter.TwitterBackend',
-    'social_auth.backends.facebook.FacebookBackend',
-    # 'social_auth.backends.google.GoogleOAuthBackend',
-    'social_auth.backends.google.GoogleOAuth2Backend',
-    # 'social_auth.backends.google.GoogleBackend',
-    # 'social_auth.backends.yahoo.YahooBackend',
-    # 'social_auth.backends.browserid.BrowserIDBackend',
-    # 'social_auth.backends.contrib.linkedin.LinkedinBackend',
-    # 'social_auth.backends.contrib.disqus.DisqusBackend',
-    # 'social_auth.backends.contrib.livejournal.LiveJournalBackend',
-    # 'social_auth.backends.contrib.orkut.OrkutBackend',
-    # 'social_auth.backends.contrib.foursquare.FoursquareBackend',
-    # 'social_auth.backends.contrib.github.GithubBackend',
-    # 'social_auth.backends.contrib.vk.VKOAuth2Backend',
-    # 'social_auth.backends.contrib.live.LiveBackend',
-    # 'social_auth.backends.contrib.skyrock.SkyrockBackend',
-    # 'social_auth.backends.contrib.yahoo.YahooOAuthBackend',
-    # 'social_auth.backends.contrib.readability.ReadabilityBackend',
-    # 'social_auth.backends.contrib.fedora.FedoraBackend',
-    # 'social_auth.backends.OpenIDBackend',
-    'django.contrib.auth.backends.ModelBackend',
+    # Needed to login by username in Django admin, regardless of `allauth`
+    "django.contrib.auth.backends.ModelBackend",
+
+    # `allauth` specific authentication methods, such as login by e-mail
+    "allauth.account.auth_backends.AuthenticationBackend",
 )
 
 
@@ -222,3 +251,12 @@ try:
     from .social_auth_config import *
 except ImportError:
     print('Falta la config para social auth')
+
+SOCIALACCOUNT_PROVIDERS = \
+    { 'facebook':
+        { 'SCOPE': ['email'],
+          'AUTH_PARAMS': { 'auth_type': 'reauthenticate' },
+          'METHOD': 'oauth2' ,
+          #'LOCALE_FUNC': 'path.to.callable'
+        }
+    }

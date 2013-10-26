@@ -1,3 +1,4 @@
+{% load i18n %}
 <div class="navbar navbar-inverse navbar-fixed-top">
     <div class="navbar-inner">
         <div class="container">
@@ -20,7 +21,7 @@
 {#                            <li><a href="">Mis Equipos</a></li>#}
 {#                            <li class="divider"></li>#}
 {#                            <li class="nav-header">Carrito de compras</li>#}
-{#                            <li><a href="#">Ver</a></li>#}
+{#                            <li><a href="#">Ver</a><a/li>#}
 {#                            <li><a href="#">Confirmar</a></li>#}
 {#                        </ul>#}
 {#                    </li>#}
@@ -30,15 +31,18 @@
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Hola, {{ user.username }} <b class="caret"></b></a>
                             <ul class="dropdown-menu">
-                                <li><a href="#">Mi cuenta</a></li>
                                 {% if user.username == 'admin' %}
                                     <li><a href="/admin">Admin</a></li>
                                 {% endif %}
-                                <li><a href="{% url "accounts_profile" %}">Perfil</a></li>
+                                <li>
+                                    <a href="{% url "accounts_profile" %}">
+                                        Perfil
+                                    </a>
+                                </li>
                                 <li><a href="#">Something else here</a></li>
                                 <li class="divider"></li>
                                 <li class="nav-header">Salir</li>
-                                <li><a href="/logout">Desconectarse</a></li>
+                                <li><a href="{% url "account_logout" %}">Desconectarse</a></li>
                             </ul>
                         </li>
                     </ul>
@@ -51,14 +55,19 @@
 {#                        <input class="span2" type="password" placeholder="Password" name="password">#}
 {#                        <button type="submit" class="btn">Sign in</button>#}
 {#                    </form>#}
+                    <div class="nav pull-right">
+                    </div>
                     <ul class="nav pull-right">
+                        <li>
+                            <a href="{% url "account_login" %}">{% trans "Login" %}</a>
+                        </li>
                         <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Ingresar con...<b class="caret"></b></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="/login/facebook">Facebook</a></li>
-                                <li><a href="/login/twitter">Twitter</a></li>
-                                <li><a href="/login/google-oauth2">Google</a></li>
-                            </ul>
+{#                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Ingresar con...<b class="caret"></b></a>#}
+{#                            <ul class="dropdown-menu">#}
+{#                                <li><a href="{% url "facebook_login" %}">Facebook</a></li>#}
+{#                                <li><a href="/login/twitter">Twitter</a></li>#}
+{#                                <li><a href="/login/google-oauth2">Google</a></li>#}
+{#                            </ul>#}
                         </li>
                     </ul>
                 {% endif %}

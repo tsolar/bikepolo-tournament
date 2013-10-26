@@ -30,9 +30,10 @@ urlpatterns = patterns('',
                            'django.views.static.serve',
                            {'document_root': settings.MEDIA_ROOT}),
 
-                       url(r'', include('social_auth.urls')),
+                       # url(r'', include('social_auth.urls')),
 
                        url(r'^accounts/', include('accounts.urls')),
+                       url(r'^auth/', include('allauth.urls')),
 
                        url(r'^$', 'base.views.index', name='base_index'),
                        url(r'^logout/$',

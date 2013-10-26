@@ -1,0 +1,23 @@
+{% load socialaccount %}
+{##}
+{#{% for provider in socialaccount.providers %}#}
+{#    {% if provider.id == "openid" %}#}
+{#        {% for brand in provider.get_brands %}#}
+{#        <li>#}
+{#          <a title="{{brand.name}}"#}
+{#             class="socialaccount_provider {{provider.id}} {{brand.id}}"#}
+{#             href="{% provider_login_url provider.id openid=brand.openid_url process=process %}"#}
+{#             >{{brand.name}} (openID)</a>#}
+{#        </li>#}
+{#        {% endfor %}#}
+{#    {% endif %}#}
+{#    {% if provider.id  == "facebook" %}#}
+{#    <li>#}
+{#      <a title="{{provider.name}}" class="socialaccount_provider {{provider.id}}"#}
+{#         href="{% provider_login_url provider.id process=process %}">{{provider.name}}#}
+{#      </a>#}
+{##}
+{#    </li>#}
+{#    {% endif %}#}
+{#{% endfor %}#}
+<a href="{% provider_login_url 'facebook' method='oauth2' %}">Facebook OAuth2</a>
