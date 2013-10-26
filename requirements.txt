@@ -14,6 +14,8 @@ httplib2==0.8
 ipython==1.1.0
 oauth2==1.5.211
 oauthlib==0.6.0
+-e git+http://github.com/russ-/pychallonge@617bfa3e949e028a8d5c11bbe2770b713015d844#egg=pychallonge-master
+python-dateutil==1.5
 python-openid==2.2.5
 requests==2.0.1
 requests-oauthlib==0.4.0
