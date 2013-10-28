@@ -19,6 +19,7 @@ class Jugador(models.Model):
             return "<Jugador #%s>" % self.id
         return self.nombre
 
+
 # cuando se crea un usuario, se crea un jugador asociado a ese usuario
 def user_post_save(sender, instance, **kwargs):
     jugador, new = Jugador.objects.get_or_create(user=instance)
