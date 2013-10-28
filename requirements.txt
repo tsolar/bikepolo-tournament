@@ -3,10 +3,10 @@ MySQL-python==1.2.4
 South==0.8.2
 argparse==1.2.1
 coverage==3.7
-django-allauth==0.13.0
+django-allauth==0.14.1
 django-cache-panel==0.1
 django-coverage==1.2.4
-django-debug-toolbar==0.9.4
+django-debug-toolbar==0.10.2
 django-extensions==1.2.5
 django-social-auth==0.7.28
 gunicorn==18.0
@@ -14,11 +14,12 @@ httplib2==0.8
 ipython==1.1.0
 oauth2==1.5.211
 oauthlib==0.6.0
--e git+http://github.com/russ-/pychallonge@617bfa3e949e028a8d5c11bbe2770b713015d844#egg=pychallonge-master
-python-dateutil==1.5
+pychallonge==1.0.1
+python-dateutil==2.1
 python-openid==2.2.5
 requests==2.0.1
 requests-oauthlib==0.4.0
 selenium==2.37.2
 six==1.4.1
+sqlparse==0.1.9
 wsgiref==0.1.2
