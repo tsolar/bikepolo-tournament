@@ -13,7 +13,9 @@ class Jugador(models.Model):
     #equipos = models.ManyToManyField(Equipo, related_name='equipos')
 
     def __unicode__(self):
-        if self.nombre == '':
+        if self.user:
+            return self.user.username
+        elif self.nombre == '':
             return "<Jugador #%s>" % self.id
         return self.nombre
 
